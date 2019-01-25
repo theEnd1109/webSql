@@ -6,7 +6,11 @@ chrome webSql class
 // 实例化数据库
 let db = new DB('test', 'test_table', ['id unique', 'name', 'sex', 'age']);
 // 删除表
-db.drop(table = ''); // table 表名 不传参 默认为实例化db的表名
+db.drop(function (tx,res) {
+  console.log(res);
+},function (tx,error) {
+  console.log(error)
+}, table = '');; // table 表名 不传参 默认为实例化db的表名
 // 添加
 db.insert({"id": i, "name": "haha" + i, "sex": 1, "age": i * 10}, function (tx,res) {
   console.log(res);
