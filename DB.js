@@ -142,10 +142,12 @@ class DB {
     }
   }
 
-  drop(table = '') {
+  drop(success = function (tx, res) {
+  }, error = function (tx, error) {
+  }, table = '') {
     let exec_table = table ? table : DB.table;
     let sql = "DROP TABLE IF EXISTS " + exec_table;
-    DB.query(sql, this.err_callback);
+    DB.query(sql, success, error);
   }
 
   static json_to_string(data) {
@@ -190,7 +192,9 @@ class DB {
 }
 
 // let db = new DB('test', 'test_table', ['id unique', 'name', 'sex', 'age']);
-// db.drop();
+// db.drop(function (tx,res) {
+//   console.log(res);
+// });
 // for (let i = 1; i < 11; i++) {
 //   db.insert({"id": i, "name": "haha" + i, "sex": 1, "age": i * 10}, function (tx,res) {
 //     console.log(res);
